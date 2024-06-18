@@ -2,7 +2,6 @@
   lib,
   buildPythonPackage,
   fetchPypi,
-  fetchpatch,
   pythonAtLeast,
   pythonOlder,
   pytestCheckHook,
@@ -27,7 +26,7 @@ buildPythonPackage rec {
   ];
 
   meta = with lib; {
-    description = "A Python Parser";
+    description = "Python Parser";
     homepage = "https://parso.readthedocs.io/en/latest/";
     changelog = "https://github.com/davidhalter/parso/blob/master/CHANGELOG.rst";
     license = licenses.mit;

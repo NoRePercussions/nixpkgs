@@ -7,6 +7,8 @@
   numpy,
   multipledispatch,
   python-dateutil,
+  setuptools,
+  versioneer,
 }:
 
 let
@@ -29,18 +31,28 @@ in
 buildPythonPackage rec {
   pname = "datashape";
   version = "0.5.4";
-  format = "setuptools";
+
+  pyproject = true;
+  build-system = [
+    setuptools
+    versioneer
+  ];
 
   src = fetcher {
     inherit pname version;
     sha256 = "0rhlj2kjj1vx5m73wnc5518rd6cs1zsbgpsvzk893n516k69shcf";
   };
 
+  postPatch = ''
+    # Remove vendorized versioneer.py
+    rm versioneer.py
+  '';
+
   nativeCheckInputs = [
     pytest
     mock
   ];
-  propagatedBuildInputs = [
+  dependencies = [
     numpy
     multipledispatch
     python-dateutil
@@ -58,7 +70,7 @@ buildPythonPackage rec {
 
   meta = {
     homepage = "https://github.com/ContinuumIO/datashape";
-    description = "A data description language";
+    description = "Data description language";
     license = lib.licenses.bsd2;
   };
 }

@@ -8,13 +8,13 @@
 
 stdenvNoCC.mkDerivation rec {
   pname = "cloudlog";
-  version = "2.6.12";
+  version = "2.6.14";
 
   src = fetchFromGitHub {
     owner = "magicbug";
     repo = "Cloudlog";
     rev = version;
-    hash = "sha256-djY+TqkA+YFCmUwZd1x4YeJDOS6ZtxDb4EhBmyftSzI=";
+    hash = "sha256-nsn/pvlFRDGUnm/X5pyzlKWgP6OlfVn3Mdj6vOJZMWQ=";
   };
 
   postPatch = ''

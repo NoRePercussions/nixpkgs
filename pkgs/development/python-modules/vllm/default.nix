@@ -2,7 +2,6 @@
   lib,
   buildPythonPackage,
   fetchFromGitHub,
-  fetchpatch,
   which,
   ninja,
   packaging,
@@ -145,7 +144,7 @@ buildPythonPackage rec {
   pythonImportsCheck = [ "vllm" ];
 
   meta = with lib; {
-    description = "A high-throughput and memory-efficient inference and serving engine for LLMs";
+    description = "High-throughput and memory-efficient inference and serving engine for LLMs";
     changelog = "https://github.com/vllm-project/vllm/releases/tag/v${version}";
     homepage = "https://github.com/vllm-project/vllm";
     license = licenses.asl20;

@@ -2,7 +2,6 @@
   lib,
   stdenv,
   fetchFromGitHub,
-  fetchpatch,
   buildPythonPackage,
   cryptography,
   click,
@@ -54,7 +53,7 @@ buildPythonPackage rec {
 
   meta = with lib; {
     homepage = "https://github.com/LedgerHQ/ledgerctl";
-    description = "A library to control Ledger devices";
+    description = "Library to control Ledger devices";
     mainProgram = "ledgerctl";
     license = licenses.mit;
     maintainers = with maintainers; [

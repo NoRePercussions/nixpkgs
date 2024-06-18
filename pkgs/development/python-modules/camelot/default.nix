@@ -1,12 +1,10 @@
 {
   lib,
-  stdenv,
   buildPythonPackage,
   chardet,
   openpyxl,
   charset-normalizer,
   fetchPypi,
-  fetchpatch,
   pythonOlder,
   pandas,
   tabulate,
@@ -48,7 +46,7 @@ buildPythonPackage rec {
   pythonImportsCheck = [ "camelot" ];
 
   meta = with lib; {
-    description = "A Python library to extract tabular data from PDFs";
+    description = "Python library to extract tabular data from PDFs";
     mainProgram = "camelot";
     homepage = "http://camelot-py.readthedocs.io";
     changelog = "https://github.com/camelot-dev/camelot/blob/v${version}/HISTORY.md";

@@ -7,16 +7,16 @@
 
 buildGoModule rec {
   pname = "extism-cli";
-  version = "1.4.0";
+  version = "1.5.1";
 
   src = fetchFromGitHub {
     owner = "extism";
     repo = "cli";
     rev = "refs/tags/v${version}";
-    hash = "sha256-F+Kb9ZAgHkw5kcOSt2Q8Lm+B8B4VPkr4FVYbe6HD+is=";
+    hash = "sha256-b+X0pFrKhcfzucUM8akV061zslkdF1Jc9X1aqCqXagU=";
   };
 
-  vendorHash = "sha256-/faWWYwY7oxbIOoqpyXC+EU4gECl/o34M+SFyfMOWj8=";
+  vendorHash = "sha256-5QSZDPRMlLVyOQGCSxNC5BBiuegschkHA0sWvOVAODI=";
 
   nativeBuildInputs = [ installShellFiles ];
 
@@ -33,7 +33,7 @@ buildGoModule rec {
   '';
 
   meta = with lib; {
-    description = "The extism CLI is used to manage Extism installations";
+    description = "Extism CLI is used to manage Extism installations";
     homepage = "https://github.com/extism/cli";
     license = licenses.bsd3;
     maintainers = with maintainers; [ zshipko ];

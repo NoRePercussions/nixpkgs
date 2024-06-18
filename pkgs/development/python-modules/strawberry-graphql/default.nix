@@ -15,6 +15,7 @@
   flask,
   freezegun,
   graphql-core,
+  inline-snapshot,
   libcst,
   opentelemetry-api,
   opentelemetry-sdk,
@@ -43,16 +44,16 @@
 
 buildPythonPackage rec {
   pname = "strawberry-graphql";
-  version = "0.219.2";
-  format = "pyproject";
+  version = "0.235.0";
+  pyproject = true;
 
-  disabled = pythonOlder "3.8";
+  disabled = pythonOlder "3.10";
 
   src = fetchFromGitHub {
     owner = "strawberry-graphql";
     repo = "strawberry";
     rev = "refs/tags/${version}";
-    hash = "sha256-uIUETjzuDnlQp6wM7uxyLRSMT5uyrXFrI9NilcjP0BU=";
+    hash = "sha256-M9GwddyLfwGhA1z+imEOiNrXYFM2gFT9IcFf/8cRHAE=";
   };
 
   patches = [
@@ -62,22 +63,16 @@ buildPythonPackage rec {
       url = "https://github.com/strawberry-graphql/strawberry/commit/710bb96f47c244e78fc54c921802bcdb48f5f421.patch";
       hash = "sha256-ekUZ2hDPCqwXp9n0YjBikwSkhCmVKUzQk7LrPECcD7Y=";
     })
-    (fetchpatch {
-      # https://github.com/strawberry-graphql/strawberry/pull/3255
-      name = "fix-tests-with-pydantic_2.patch";
-      url = "https://github.com/strawberry-graphql/strawberry/commit/0a0dc284ee6d31d4e82ac7ff1ed9fea4dff39fa6.patch";
-      hash = "sha256-LACWD7XA6YL/apJwhpx3LPCKxKUfa+XWyTLK+Zkxlaw=";
-    })
   ];
 
   postPatch = ''
     substituteInPlace pyproject.toml \
-      --replace "--emoji --mypy-ini-file=mypy.ini" "" \
+      --replace-fail "--emoji" "" \
   '';
 
-  nativeBuildInputs = [ poetry-core ];
+  build-system = [ poetry-core ];
 
-  propagatedBuildInputs = [
+  dependencies = [
     graphql-core
     python-dateutil
     typing-extensions
@@ -135,9 +130,8 @@ buildPythonPackage rec {
       rich
       libcst
     ];
-    # starlite = [
-    #   starlite
-    # ];
+    # starlite = [ starlite ];
+    # litestar = [ litestar ];
     pyinstrument = [ pyinstrument ];
   };
 
@@ -145,6 +139,7 @@ buildPythonPackage rec {
     daphne
     email-validator
     freezegun
+    inline-snapshot
     pytest-asyncio
     pytest-emoji
     pytest-mock
@@ -161,7 +156,6 @@ buildPythonPackage rec {
     "tests/django/test_dataloaders.py"
     "tests/exceptions/"
     "tests/http/"
-    "tests/mypy/test_plugin.py" # avoid dependency on mypy
     "tests/schema/extensions/"
     "tests/schema/test_dataloaders.py"
     "tests/schema/test_lazy/"
@@ -169,16 +163,17 @@ buildPythonPackage rec {
     "tests/test_dataloaders.py"
     "tests/utils/test_pretty_print.py"
     "tests/websockets/test_graphql_transport_ws.py"
+    "tests/litestar/"
   ];
 
   __darwinAllowLocalNetworking = true;
 
   meta = with lib; {
-    description = "A GraphQL library for Python that leverages type annotations";
-    mainProgram = "strawberry";
+    description = "GraphQL library for Python that leverages type annotations";
     homepage = "https://strawberry.rocks";
     changelog = "https://github.com/strawberry-graphql/strawberry/blob/${version}/CHANGELOG.md";
-    license = with licenses; [ mit ];
+    license = licenses.mit;
     maintainers = with maintainers; [ izorkin ];
+    mainProgram = "strawberry";
   };
 }
